@@ -1,0 +1,11 @@
+probe process("/home/yoyo/.anyenv/envs/rbenv/shims/ruby").mark("method__entry") {
+  if (pid() == target()) {
+      printf("%s -> %s#%s (%s:%d)\n", thread_indent(1), user_string($arg1), user_string($arg2), user_string($arg3), $arg4)
+  }
+}
+
+probe process("/home/yoyo/.anyenv/envs/rbenv/shims/ruby").mark("method__return") {
+  if (pid() == target()) {
+    printf("%s <- %s#%s (%s:%d)\n", thread_indent(-1), user_string($arg1), user_string($arg2), user_string($arg3), $arg4)
+  }
+}
